@@ -1,0 +1,28 @@
+services:
+  # Esecuzione singola: `docker compose run --rm ic-lentate-alert`
+  # Utile per testare modifiche al volo durante lo sviluppo.
+  ic-lentate-alert:
+    build: .
+    container_name: ic_lentate_alert
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - ./state:/app/state
+
+  # Esecuzione continua in locale (facoltativa): ripete il controllo ogni
+  # 2 ore senza dover richiamare manualmente `docker compose run`.
+  # Avvio: `docker compose --profile loop up -d ic-lentate-alert-loop`
+  ic-lentate-alert-loop:
+    build: .
+    container_name: ic_lentate_alert_loop
+    restart: unless-stopped
+    profiles: ["loop"]
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - ./state:/app/state
+    entrypoint: ["sh", "-c"]
+    command:
+      - "while true; do python monitor.py; sleep 7200; done"
