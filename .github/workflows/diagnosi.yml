@@ -1,0 +1,38 @@
+name: Diagnosi rete IC Lentate
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  diagnosi:
+    runs-on: ubuntu-latest
+    steps:
+      - name: DNS lookup
+        run: |
+          echo "=== DNS ==="
+          getent hosts www.iclentate.edu.it || true
+          nslookup www.iclentate.edu.it || true
+
+      - name: Curl verbose (porta 443)
+        run: |
+          echo "=== CURL VERBOSE ==="
+          curl -v --max-time 15 https://www.iclentate.edu.it/novita/notizie -o /dev/null 2>&1 || true
+
+      - name: Curl con User-Agent da browser
+        run: |
+          echo "=== CURL CON UA BROWSER ==="
+          curl -v --max-time 15 \
+            -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" \
+            https://www.iclentate.edu.it/novita/notizie -o /dev/null 2>&1 || true
+
+      - name: Curl su HTTP semplice (porta 80, redirect?)
+        run: |
+          echo "=== CURL HTTP (80) ==="
+          curl -v --max-time 15 http://www.iclentate.edu.it/novita/notizie -o /dev/null 2>&1 || true
+
+      - name: IP pubblico del runner
+        run: |
+          echo "=== IP DEL RUNNER GITHUB ACTIONS ==="
+          curl -s https://api.ipify.org || true
+          echo ""
+          curl -s https://ipinfo.io/json || true
