@@ -1,0 +1,55 @@
+name: Monitor IC Lentate
+
+on:
+  schedule:
+    # Ogni 2 ore. Gli orari cron di GitHub Actions sono sempre in UTC:
+    # con l'Italia a UTC+1 (inverno) / UTC+2 (estate, ora legale) gli
+    # invii arriveranno con 1-2h di sfasamento rispetto all'orario
+    # "pulito" italiano (es. le 00 UTC sono le 01 o le 02 ora italiana).
+    # Non è un problema dato che non hai esigenze di puntualità.
+    - cron: "0 */2 * * *"
+  # Permette di lanciare il workflow manualmente da GitHub (tab Actions)
+  # per testare senza aspettare il prossimo trigger schedulato.
+  workflow_dispatch: {}
+
+# Necessario per poter fare il commit del file di stato aggiornato
+permissions:
+  contents: write
+
+concurrency:
+  group: ic-lentate-monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run monitor
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT: ${{ secrets.TELEGRAM_CHAT }}
+          STATE_FILE: state/last_seen.json
+        run: python monitor.py
+
+      - name: Commit updated state (if changed)
+        run: |
+          git config user.name "ic-lentate-bot"
+          git config user.email "actions@users.noreply.github.com"
+          if ! git diff --quiet -- state/last_seen.json; then
+            git add state/last_seen.json
+            git commit -m "chore: aggiorna stato notifiche [skip ci]"
+            git push
+          else
+            echo "Nessuna modifica allo stato, niente da committare."
+          fi
