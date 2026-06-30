@@ -28,7 +28,7 @@ from bs4 import BeautifulSoup
 # Configurazione
 # --------------------------------------------------------------------------
 
-BASE_URL = "https://www.iclentate.edu.it"
+BASE_URL = os.environ.get("BASE_URL", "https://www.iclentate.edu.it")
 
 SECTIONS = {
     "notizie": {
