@@ -1,0 +1,201 @@
+========================================
+[2026-06-30 20:24:49] Container avviato — avvio cron
+========================================
+[2026-06-30 20:24:49] cron trovato in: /usr/sbin/cron
+
+--- [2026-06-30 22:00:01] Run avviato ---
+2026-06-30 22:00:01,223 - INFO - Nessun file di stato trovato, parto da zero (state/last_seen.json)
+2026-06-30 22:00:01,223 - WARNING - Primo avvio rilevato (stato vuoto): marco tutto il contenuto attuale come già notificato, senza inviare messaggi retroattivi. Dal prossimo run verranno notificate solo le novità.
+2026-06-30 22:00:01,223 - INFO - Bootstrap sezione 'notizie' (https://www.iclentate.edu.it/novita/notizie)
+2026-06-30 22:00:01,350 - INFO -   9 elementi marcati come già noti (nessuna notifica inviata)
+2026-06-30 22:00:01,350 - INFO - Bootstrap sezione 'circolari' (https://www.iclentate.edu.it/novita/circolari)
+2026-06-30 22:00:01,426 - INFO -   9 elementi marcati come già noti (nessuna notifica inviata)
+2026-06-30 22:00:01,426 - INFO - Bootstrap sezione 'eventi' (https://www.iclentate.edu.it/novita/calendario-eventi)
+2026-06-30 22:00:01,501 - INFO -   3 elementi marcati come già noti (nessuna notifica inviata)
+2026-06-30 22:00:03,327 - INFO - Run completato. Messaggi inviati: 0
+--- [2026-06-30 22:00:03] Run terminato (exit: 0) ---
+========================================
+[2026-07-01 04:44:56] Container avviato — avvio cron
+========================================
+[2026-07-01 04:44:56] cron trovato in: /usr/sbin/cron
+========================================
+[2026-07-01 04:59:32] Container avviato — avvio cron
+========================================
+[2026-07-01 04:59:32] cron trovato in: /usr/sbin/cron
+
+--- [2026-07-01 05:03:03] Run avviato ---
+2026-07-01 05:03:03,634 - ERROR - Stato corrotto o illeggibile (Expecting value: line 11 column 3 (char 840)), riparto da zero
+2026-07-01 05:03:03,634 - WARNING - Primo avvio rilevato (stato vuoto): marco tutto il contenuto attuale come già notificato, senza inviare messaggi retroattivi. Dal prossimo run verranno notificate solo le novità.
+2026-07-01 05:03:03,635 - INFO - Bootstrap sezione 'notizie' (https://www.iclentate.edu.it/novita/notizie)
+2026-07-01 05:03:03,804 - INFO -   9 elementi marcati come già noti (nessuna notifica inviata)
+2026-07-01 05:03:03,804 - INFO - Bootstrap sezione 'circolari' (https://www.iclentate.edu.it/novita/circolari)
+2026-07-01 05:03:03,900 - INFO -   9 elementi marcati come già noti (nessuna notifica inviata)
+2026-07-01 05:03:03,900 - INFO - Bootstrap sezione 'eventi' (https://www.iclentate.edu.it/novita/calendario-eventi)
+2026-07-01 05:03:04,045 - INFO -   3 elementi marcati come già noti (nessuna notifica inviata)
+2026-07-01 05:03:04,221 - INFO - Run completato. Messaggi inviati: 0
+--- [2026-07-01 05:03:04] Run terminato (exit: 0) ---
+
+--- [2026-07-01 05:09:27] Run avviato ---
+2026-07-01 05:09:27,400 - INFO - Controllo sezione 'notizie' (https://www.iclentate.edu.it/novita/notizie)
+2026-07-01 05:09:27,486 - INFO -   nessuna novità (9 elementi in lista, già tutti noti)
+2026-07-01 05:09:27,486 - INFO - Controllo sezione 'circolari' (https://www.iclentate.edu.it/novita/circolari)
+2026-07-01 05:09:27,554 - INFO -   nessuna novità (9 elementi in lista, già tutti noti)
+2026-07-01 05:09:27,554 - INFO - Controllo sezione 'eventi' (https://www.iclentate.edu.it/novita/calendario-eventi)
+2026-07-01 05:09:27,618 - INFO -   nessuna novità (3 elementi in lista, già tutti noti)
+2026-07-01 05:09:27,619 - INFO - Run completato. Messaggi inviati: 0
+--- [2026-07-01 05:09:27] Run terminato (exit: 0) ---
+
+--- [2026-07-01 05:10:06] Run avviato ---
+2026-07-01 05:10:06,405 - INFO - Nessun file di stato trovato, parto da zero (state/last_seen.json)
+2026-07-01 05:10:06,405 - WARNING - Primo avvio rilevato (stato vuoto): marco tutto il contenuto attuale come già notificato, senza inviare messaggi retroattivi. Dal prossimo run verranno notificate solo le novità.
+2026-07-01 05:10:06,405 - INFO - Bootstrap sezione 'notizie' (https://www.iclentate.edu.it/novita/notizie)
+2026-07-01 05:10:06,573 - INFO -   9 elementi marcati come già noti (nessuna notifica inviata)
+2026-07-01 05:10:06,574 - INFO - Bootstrap sezione 'circolari' (https://www.iclentate.edu.it/novita/circolari)
+2026-07-01 05:10:06,638 - INFO -   9 elementi marcati come già noti (nessuna notifica inviata)
+2026-07-01 05:10:06,638 - INFO - Bootstrap sezione 'eventi' (https://www.iclentate.edu.it/novita/calendario-eventi)
+2026-07-01 05:10:06,696 - INFO -   3 elementi marcati come già noti (nessuna notifica inviata)
+2026-07-01 05:10:06,871 - INFO - Run completato. Messaggi inviati: 0
+--- [2026-07-01 05:10:06] Run terminato (exit: 0) ---
+
+--- [2026-07-01 05:10:33] Run avviato ---
+2026-07-01 05:10:33,967 - INFO - Controllo sezione 'notizie' (https://www.iclentate.edu.it/novita/notizie)
+2026-07-01 05:10:35,392 - INFO -   notificato: Concorso "LA CULTURA DEL RISPETTO" Pubblicità Progresso
+2026-07-01 05:10:36,396 - INFO - Controllo sezione 'circolari' (https://www.iclentate.edu.it/novita/circolari)
+2026-07-01 05:10:36,520 - INFO -   nessuna novità (9 elementi in lista, già tutti noti)
+2026-07-01 05:10:36,520 - INFO - Controllo sezione 'eventi' (https://www.iclentate.edu.it/novita/calendario-eventi)
+2026-07-01 05:10:36,621 - INFO -   nessuna novità (3 elementi in lista, già tutti noti)
+2026-07-01 05:10:36,623 - INFO - Run completato. Messaggi inviati: 1
+--- [2026-07-01 05:10:36] Run terminato (exit: 0) ---
+========================================
+[2026-07-01 05:11:53] Container avviato — avvio cron
+========================================
+[2026-07-01 05:11:53] cron trovato in: /usr/sbin/cron
+
+--- [2026-07-01 05:14:09] Run avviato ---
+2026-07-01 05:14:09,565 - INFO - Controllo sezione 'notizie' (https://www.iclentate.edu.it/novita/notizie)
+2026-07-01 05:14:10,964 - INFO -   notificato: Concorso "LA CULTURA DEL RISPETTO" Pubblicità Progresso
+2026-07-01 05:14:11,967 - INFO - Controllo sezione 'circolari' (https://www.iclentate.edu.it/novita/circolari)
+2026-07-01 05:14:12,054 - INFO -   nessuna novità (9 elementi in lista, già tutti noti)
+2026-07-01 05:14:12,054 - INFO - Controllo sezione 'eventi' (https://www.iclentate.edu.it/novita/calendario-eventi)
+2026-07-01 05:14:12,137 - INFO -   nessuna novità (3 elementi in lista, già tutti noti)
+2026-07-01 05:14:12,138 - INFO - Run completato. Messaggi inviati: 1
+--- [2026-07-01 05:14:12] Run terminato (exit: 0) ---
+========================================
+[2026-07-01 05:29:16] Container avviato — installazione crontab
+[2026-07-01 05:29:16] Crontab attivo:
+SHELL=/bin/sh
+PATH=/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin
+MAILTO=""
+
+# IC Lentate sul Seveso — monitora il sito della scuola
+# Esegue monitor.py ogni 2 ore, dalle 06:00 alle 22:00 UTC
+# (= 08:00-00:00 ora italiana CEST)
+0 6,8,10,12,14,16,18,20,22 * * * sh /app/run.sh
+========================================
+
+--- [2026-07-01 06:00:01] Run avviato ---
+2026-07-01 06:00:01,304 - INFO - Nessun file di stato trovato, parto da zero (state/last_seen.json)
+2026-07-01 06:00:01,305 - WARNING - Primo avvio rilevato (stato vuoto): marco tutto il contenuto attuale come già notificato, senza inviare messaggi retroattivi. Dal prossimo run verranno notificate solo le novità.
+2026-07-01 06:00:01,305 - INFO - Bootstrap sezione 'notizie' (https://www.iclentate.edu.it/novita/notizie)
+2026-07-01 06:00:01,390 - INFO -   9 elementi marcati come già noti (nessuna notifica inviata)
+2026-07-01 06:00:01,391 - INFO - Bootstrap sezione 'circolari' (https://www.iclentate.edu.it/novita/circolari)
+2026-07-01 06:00:01,471 - INFO -   9 elementi marcati come già noti (nessuna notifica inviata)
+2026-07-01 06:00:01,471 - INFO - Bootstrap sezione 'eventi' (https://www.iclentate.edu.it/novita/calendario-eventi)
+2026-07-01 06:00:01,532 - INFO -   3 elementi marcati come già noti (nessuna notifica inviata)
+2026-07-01 06:00:01,784 - INFO - Run completato. Messaggi inviati: 0
+--- [2026-07-01 06:00:01] Run terminato (exit: 0) ---
+
+--- [2026-07-01 08:00:01] Run avviato ---
+2026-07-01 08:00:01,640 - INFO - Controllo sezione 'notizie' (https://www.iclentate.edu.it/novita/notizie)
+2026-07-01 08:00:01,814 - INFO -   nessuna novità (9 elementi in lista, già tutti noti)
+2026-07-01 08:00:01,814 - INFO - Controllo sezione 'circolari' (https://www.iclentate.edu.it/novita/circolari)
+2026-07-01 08:00:01,890 - INFO -   nessuna novità (9 elementi in lista, già tutti noti)
+2026-07-01 08:00:01,890 - INFO - Controllo sezione 'eventi' (https://www.iclentate.edu.it/novita/calendario-eventi)
+2026-07-01 08:00:03,703 - INFO -   nessuna novità (3 elementi in lista, già tutti noti)
+2026-07-01 08:00:03,703 - INFO - Run completato. Messaggi inviati: 0
+--- [2026-07-01 08:00:03] Run terminato (exit: 0) ---
+
+--- [2026-07-01 10:00:01] Run avviato ---
+2026-07-01 10:00:01,614 - INFO - Controllo sezione 'notizie' (https://www.iclentate.edu.it/novita/notizie)
+2026-07-01 10:00:04,876 - INFO -   nessuna novità (9 elementi in lista, già tutti noti)
+2026-07-01 10:00:04,876 - INFO - Controllo sezione 'circolari' (https://www.iclentate.edu.it/novita/circolari)
+2026-07-01 10:00:07,854 - INFO -   nessuna novità (9 elementi in lista, già tutti noti)
+2026-07-01 10:00:07,854 - INFO - Controllo sezione 'eventi' (https://www.iclentate.edu.it/novita/calendario-eventi)
+2026-07-01 10:00:10,921 - INFO -   nessuna novità (3 elementi in lista, già tutti noti)
+2026-07-01 10:00:10,922 - INFO - Run completato. Messaggi inviati: 0
+--- [2026-07-01 10:00:10] Run terminato (exit: 0) ---
+
+--- [2026-07-01 12:00:01] Run avviato ---
+2026-07-01 12:00:01,848 - INFO - Controllo sezione 'notizie' (https://www.iclentate.edu.it/novita/notizie)
+2026-07-01 12:00:01,979 - INFO -   nessuna novità (9 elementi in lista, già tutti noti)
+2026-07-01 12:00:01,979 - INFO - Controllo sezione 'circolari' (https://www.iclentate.edu.it/novita/circolari)
+2026-07-01 12:00:02,048 - INFO -   nessuna novità (9 elementi in lista, già tutti noti)
+2026-07-01 12:00:02,048 - INFO - Controllo sezione 'eventi' (https://www.iclentate.edu.it/novita/calendario-eventi)
+2026-07-01 12:00:02,110 - INFO -   nessuna novità (3 elementi in lista, già tutti noti)
+2026-07-01 12:00:02,111 - INFO - Run completato. Messaggi inviati: 0
+--- [2026-07-01 12:00:02] Run terminato (exit: 0) ---
+
+--- [2026-07-01 14:00:01] Run avviato ---
+2026-07-01 14:00:02,009 - INFO - Controllo sezione 'notizie' (https://www.iclentate.edu.it/novita/notizie)
+2026-07-01 14:00:05,437 - INFO -   nessuna novità (9 elementi in lista, già tutti noti)
+2026-07-01 14:00:05,437 - INFO - Controllo sezione 'circolari' (https://www.iclentate.edu.it/novita/circolari)
+2026-07-01 14:00:07,620 - INFO -   nessuna novità (9 elementi in lista, già tutti noti)
+2026-07-01 14:00:07,620 - INFO - Controllo sezione 'eventi' (https://www.iclentate.edu.it/novita/calendario-eventi)
+2026-07-01 14:00:09,457 - INFO -   nessuna novità (3 elementi in lista, già tutti noti)
+2026-07-01 14:00:09,458 - INFO - Run completato. Messaggi inviati: 0
+--- [2026-07-01 14:00:09] Run terminato (exit: 0) ---
+
+--- [2026-07-01 16:00:01] Run avviato ---
+2026-07-01 16:00:01,364 - INFO - Controllo sezione 'notizie' (https://www.iclentate.edu.it/novita/notizie)
+2026-07-01 16:00:01,502 - INFO -   nessuna novità (9 elementi in lista, già tutti noti)
+2026-07-01 16:00:01,503 - INFO - Controllo sezione 'circolari' (https://www.iclentate.edu.it/novita/circolari)
+2026-07-01 16:00:01,630 - INFO -   nessuna novità (9 elementi in lista, già tutti noti)
+2026-07-01 16:00:01,630 - INFO - Controllo sezione 'eventi' (https://www.iclentate.edu.it/novita/calendario-eventi)
+2026-07-01 16:00:01,747 - INFO -   nessuna novità (3 elementi in lista, già tutti noti)
+2026-07-01 16:00:01,747 - INFO - Run completato. Messaggi inviati: 0
+--- [2026-07-01 16:00:01] Run terminato (exit: 0) ---
+
+--- [2026-07-01 18:00:01] Run avviato ---
+2026-07-01 18:00:01,674 - INFO - Controllo sezione 'notizie' (https://www.iclentate.edu.it/novita/notizie)
+2026-07-01 18:00:01,823 - INFO -   nessuna novità (9 elementi in lista, già tutti noti)
+2026-07-01 18:00:01,823 - INFO - Controllo sezione 'circolari' (https://www.iclentate.edu.it/novita/circolari)
+2026-07-01 18:00:01,889 - INFO -   nessuna novità (9 elementi in lista, già tutti noti)
+2026-07-01 18:00:01,889 - INFO - Controllo sezione 'eventi' (https://www.iclentate.edu.it/novita/calendario-eventi)
+2026-07-01 18:00:01,951 - INFO -   nessuna novità (3 elementi in lista, già tutti noti)
+2026-07-01 18:00:01,951 - INFO - Run completato. Messaggi inviati: 0
+--- [2026-07-01 18:00:01] Run terminato (exit: 0) ---
+========================================
+[2026-07-01 19:25:40] Container avviato — installazione crontab
+[2026-07-01 19:25:40] Crontab attivo:
+SHELL=/bin/sh
+PATH=/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin
+MAILTO=""
+
+# IC Lentate sul Seveso — monitora il sito della scuola
+# Esegue monitor.py ogni 2 ore, dalle 06:00 alle 22:00 UTC
+# (= 08:00-00:00 ora italiana CEST)
+0 6,8,10,12,14,16,18,20,22 * * * sh /app/run.sh
+========================================
+========================================
+[2026-07-01 19:26:34] Container avviato — installazione crontab
+[2026-07-01 19:26:34] Crontab attivo:
+SHELL=/bin/sh
+PATH=/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin
+MAILTO=""
+
+# IC Lentate sul Seveso — monitora il sito della scuola
+# Esegue monitor.py ogni 2 ore, dalle 06:00 alle 22:00 UTC
+# (= 08:00-00:00 ora italiana CEST)
+0 6,8,10,12,14,16,18,20,22 * * * sh /app/run.sh
+========================================
+
+--- [2026-07-01 20:00:01] Run avviato ---
+2026-07-01 20:00:01,141 - INFO - Controllo sezione 'notizie' (https://www.iclentate.edu.it/novita/notizie)
+2026-07-01 20:00:03,536 - INFO -   notificato: ADOZIONE LIBRI DI TESTO A.S. 2026/27
+2026-07-01 20:00:06,544 - INFO -   notificato: Concorso "LA CULTURA DEL RISPETTO" Pubblicità Progresso
+2026-07-01 20:00:07,551 - INFO - Controllo sezione 'circolari' (https://www.iclentate.edu.it/novita/circolari)
+2026-07-01 20:00:09,824 - INFO -   notificato: REVOCA sciopero 23-24 Aprile 2026
+2026-07-01 20:00:10,831 - INFO - Controllo sezione 'eventi' (https://www.iclentate.edu.it/novita/calendario-eventi)
+2026-07-01 20:00:11,754 - INFO -   notificato: Avviso pubblico per affidamento di forniture di beni e servizi, previa consultazione di più Operatori Economici, mediante affidamento diretto di servizio trasporto visite guidate a. s. 2025-26
+2026-07-01 20:00:12,763 - INFO - Run completato. Messaggi inviati: 4
+--- [2026-07-01 20:00:12] Run terminato (exit: 0) ---
