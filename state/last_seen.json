@@ -1,5 +1,29 @@
 {
-  "notizie": [],
-  "circolari": [],
-  "eventi": []
+  "notizie": [
+    "https://www.iclentate.edu.it/novita/notizie/concerto-di-fine-anno-percorso-musicale-scuola-secondaria-di-i-grado",
+    "https://www.iclentate.edu.it/novita/notizie/sospensione-attivita-didattiche-ed-educative-e-chiusura-uffici-di-segreteria-dal",
+    "https://www.iclentate.edu.it/novita/notizie/compilazione-modulo-c-attivita-alternativa-alla-religione-cattolica-2026-27",
+    "https://www.iclentate.edu.it/novita/notizie/manifestazioni-finali-delle-classi-con-percorso-musicale",
+    "https://www.iclentate.edu.it/novita/notizie/disseminazione-pn-2127-agenda-nord-2025-26-e-2026-27",
+    "https://www.iclentate.edu.it/novita/notizie/eventi-rete-brianza-musica",
+    "https://www.iclentate.edu.it/novita/notizie/mostra-larte-carta",
+    "https://www.iclentate.edu.it/novita/notizie/adozione-libri-di-testo-202627",
+    "https://www.iclentate.edu.it/novita/notizie/concorso-la-cultura-del-rispetto-pubblicita-progresso"
+  ],
+  "circolari": [
+    "https://www.iclentate.edu.it/novita/circolari/lettera-sciopero-ai-genitori-del-29-maggio-2026",
+    "https://www.iclentate.edu.it/novita/circolari/comunicazione-ai-genitori-sciopero-di-lunedi-18-maggio-2026",
+    "https://www.iclentate.edu.it/novita/circolari/comunicazione-ai-genitori-assemblea-anief-21-maggio-2026",
+    "https://www.iclentate.edu.it/novita/circolari/revoca-sciopero-15-16-maggio-2026-csle",
+    "https://www.iclentate.edu.it/novita/circolari/lettera-sciopero-ai-genitori-i-giorni-6-7-maggio-2026-cobas-scuola-cobas-scuola",
+    "https://www.iclentate.edu.it/novita/circolari/concorsi-titoli-laccesso-ai-ruoli-provinciali-relativi-ai-profili-professionali",
+    "https://www.iclentate.edu.it/novita/circolari/lettera-ai-genitori-assemblea-sindacale-regionale-cisl-scuola-lombardia-il-29",
+    "https://www.iclentate.edu.it/novita/circolari/comunicazione-ai-genitori-assemblea-sindacale-del-27-aprile-2026-indetta-dal",
+    "https://www.iclentate.edu.it/novita/circolari/revoca-sciopero-23-24-aprile-2026"
+  ],
+  "eventi": [
+    "https://www.iclentate.edu.it/novita/notizie/un-minuto-di-silenzio-e-di-raccoglimento-7-gennaio-2026",
+    "https://www.iclentate.edu.it/novita/notizie/dalla-parte-delle-donne",
+    "https://www.iclentate.edu.it/novita/notizie/avviso-pubblico-affidamento-di-forniture-di-beni-e-servizi-previa-consultazione-di"
+  ]
 }

@@ -1,0 +1,8 @@
+SHELL=/bin/sh
+PATH=/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin
+MAILTO=""
+
+# IC Lentate sul Seveso — monitora il sito della scuola
+# Esegue monitor.py ogni 2 ore, dalle 06:00 alle 22:00 UTC
+# (= 08:00-00:00 ora italiana CEST)
+0 6,8,10,12,14,16,18,20,22 * * * sh /app/run.sh

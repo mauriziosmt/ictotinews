@@ -1,28 +1,26 @@
 services:
-  # Esecuzione singola: `docker compose run --rm ic-lentate-alert`
-  # Utile per testare modifiche al volo durante lo sviluppo.
+  # Esecuzione continua: il container rimane attivo, cron esegue monitor.py
+  # ogni 2 ore dalle 06:00 alle 22:00.
+  # Avvio:  docker compose up -d
+  # Log:    tail -f state/monitor.log
   ic-lentate-alert:
     build: .
     container_name: ic_lentate_alert
-    env_file:
-      - .env
-    volumes:
-      - .:/app
-      - ./state:/app/state
-
-  # Esecuzione continua in locale (facoltativa): ripete il controllo ogni
-  # 2 ore senza dover richiamare manualmente `docker compose run`.
-  # Avvio: `docker compose --profile loop up -d ic-lentate-alert-loop`
-  ic-lentate-alert-loop:
-    build: .
-    container_name: ic_lentate_alert_loop
     restart: unless-stopped
-    profiles: ["loop"]
+    env_file:
+      - .env
+    volumes:
+      - .:/app    # monta l'intera cartella del progetto: state/, monitor.py, run.sh, ecc.
+
+  # Test manuale one-shot: esegue monitor.py una volta sola e termina.
+  # Non parte con `docker compose up -d` (profilo "test").
+  # Avvio: docker compose --profile test run --rm ic-lentate-alert-test
+  ic-lentate-alert-test:
+    build: .
+    container_name: ic_lentate_alert_test
+    profiles: ["test"]
     env_file:
       - .env
     volumes:
       - .:/app
-      - ./state:/app/state
-    entrypoint: ["sh", "-c"]
-    command:
-      - "while true; do python monitor.py; sleep 7200; done"
+    entrypoint: ["python", "/app/monitor.py"]
