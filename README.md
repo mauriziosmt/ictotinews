@@ -1,18 +1,19 @@
 # ictotinews
 
 Bot Telegram che monitora il sito dell'IC "E. Toti" di Lentate sul Seveso e
-manda una notifica per ogni nuova notizia, circolare o evento pubblicato.
+manda una notifica per ogni nuova notizia, circolare, evento o atto dell'Albo online.
 
 Scritto principalmente per tenere d'occhio le comunicazioni della scuola
 dell'infanzia senza dover controllare il sito ogni giorno.
 
 ## Come funziona
 
-Lo script controlla le tre sezioni del sito:
+Lo script controlla le quattro sezioni del sito:
 
 - `/novita/notizie`
 - `/novita/circolari`
 - `/novita/calendario-eventi`
+- `/novita/albo-pretorio`
 
 Per ogni nuova pubblicazione manda un messaggio Telegram con titolo, data,
 destinatari (quando disponibili) e link. Se il titolo o i destinatari
@@ -23,6 +24,22 @@ Lo stato viene salvato in `state/last_seen.json`: al primo avvio tutto il
 contenuto attuale viene marcato come già visto, così non ricevi una valanga
 di notifiche retroattive.
 
+## Modalità debug locale
+
+Imposta nel tuo `.env`:
+
+```dotenv
+DEBUG_MODE=true
+```
+
+In questa modalità Telegram è completamente disabilitato, le credenziali non
+sono obbligatorie e `state/last_seen.json` non viene modificato. Ogni elemento
+trovato viene invece stampato nel log come messaggio simulato:
+
+```bash
+docker compose --profile test run --rm ic-lentate-alert-test
+```
+
 ## Prerequisiti
 
 - Docker (per il dev locale)
@@ -32,7 +49,7 @@ di notifiche retroattive.
 ## Setup
 
 ```bash
-cp .env.example .env
+cp env.example .env
 # compila TELEGRAM_TOKEN e TELEGRAM_CHAT nel file .env
 ```
 
@@ -76,7 +93,7 @@ Per attivarlo:
 ├── requirements.txt
 ├── Dockerfile
 ├── docker-compose.yml
-├── .env.example
+├── env.example
 ├── state/
 │   └── last_seen.json         # URL già notificati (committato nel repo)
 └── .github/

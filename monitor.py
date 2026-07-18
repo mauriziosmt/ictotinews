@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Monitor IC Lentate — controlla le pagine Notizie / Circolari / Calendario eventi
+Monitor IC Lentate — controlla Notizie / Circolari / Calendario eventi / Albo
 del sito dell'Istituto Comprensivo "E. Toti" di Lentate sul Seveso e invia un
 messaggio Telegram per ogni nuova pubblicazione trovata.
 
@@ -30,6 +30,16 @@ from bs4 import BeautifulSoup
 
 BASE_URL = os.environ.get("BASE_URL", "https://www.iclentate.edu.it")
 
+
+def env_flag(name: str, default: bool = False) -> bool:
+    value = os.environ.get(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "on", "si", "sì"}
+
+
+DEBUG_MODE = env_flag("DEBUG_MODE")
+
 SECTIONS = {
     "notizie": {
         "label": "NOTIZIA",
@@ -48,6 +58,12 @@ SECTIONS = {
         "emoji": "📅",
         "list_url": f"{BASE_URL}/novita/calendario-eventi",
         "path_prefix": None,  # gli eventi puntano a /novita/notizie/... o /novita/circolari/...
+    },
+    "albo": {
+        "label": "ALBO ONLINE",
+        "emoji": "🏛️",
+        "list_url": f"{BASE_URL}/novita/albo-pretorio",
+        "path_prefix": "/albo-pretorio/",
     },
 }
 
@@ -120,6 +136,10 @@ def save_state(state: dict) -> None:
 # --------------------------------------------------------------------------
 
 def send_telegram(text: str) -> bool:
+    if DEBUG_MODE:
+        logger.info("[DEBUG] Messaggio Telegram simulato (nessun invio):\n%s", text)
+        return True
+
     if not TELEGRAM_TOKEN or not TELEGRAM_CHAT:
         logger.error("TELEGRAM_TOKEN / TELEGRAM_CHAT non configurati, salto invio")
         return False
@@ -353,6 +373,49 @@ def parse_eventi(soup: BeautifulSoup) -> list[dict]:
     return items
 
 
+def parse_albo(soup: BeautifulSoup) -> list[dict]:
+    """Estrae gli atti dalla tabella Drupal dell'Albo online."""
+    main = get_main_content(soup)
+    items = []
+    seen_urls = set()
+
+    for row in main.select("table tbody tr"):
+        title_cell = row.select_one("td.views-field-title")
+        link_tag = title_cell.find("a", href=True) if title_cell else None
+        if link_tag is None or "/albo-pretorio/" not in link_tag["href"]:
+            continue
+
+        full_url = urljoin(BASE_URL, link_tag["href"]).split("?")[0]
+        if full_url in seen_urls:
+            continue
+        seen_urls.add(full_url)
+
+        number_cell = row.select_one("td.views-field-field-numero-inserimento")
+        protocol_cell = row.select_one("td.views-field-field-atto-protocollo")
+        publication_cell = row.select_one("td.views-field-field-atto-fine-pubblicazione")
+        category_cell = row.select_one("td.views-field-field-categoria-albo-pretorio")
+
+        protocol_text = clean_text(protocol_cell.get_text(" ")) if protocol_cell else ""
+        date_match = re.search(
+            r"(?:Lun|Mar|Mer|Gio|Ven|Sab|Dom),?\s+\d{1,2}\s+\w+\s+\d{4}",
+            protocol_text,
+            re.IGNORECASE,
+        )
+
+        items.append({
+            "url": full_url,
+            "title": clean_text(link_tag.get_text()),
+            "date": date_match.group(0) if date_match else "N/D",
+            "number": clean_text(number_cell.get_text()) if number_cell else "N/D",
+            "protocol": protocol_text.split(" ", 1)[0] if protocol_text else "N/D",
+            "publication": clean_text(publication_cell.get_text(" ")) if publication_cell else "",
+            "category": clean_text(category_cell.get_text(" ")) if category_cell else "",
+            "block_text": clean_text(row.get_text(" ")),
+        })
+
+    return items
+
+
 # --------------------------------------------------------------------------
 # Costruzione messaggi
 # --------------------------------------------------------------------------
@@ -369,6 +432,13 @@ def build_message(section_key: str, item: dict, destinatario: str = "") -> str:
     if section_key == "eventi":
         lines.append(f"Tipo: {item.get('tipo', 'N/D')}")
         lines.append(f"📅 Data: {item.get('date', 'N/D')}")
+    elif section_key == "albo":
+        lines.append(f"📅 Data atto: {item.get('date', 'N/D')}")
+        lines.append(f"🔢 Inserimento: {item.get('number', 'N/D')} — Protocollo: {item.get('protocol', 'N/D')}")
+        if item.get("category"):
+            lines.append(f"📁 Categoria: {item['category']}")
+        if item.get("publication"):
+            lines.append(f"🗓️ Pubblicazione: {item['publication']}")
     else:
         lines.append(f"📅 Data: {item.get('date', 'N/D')}")
         if destinatario:
@@ -397,6 +467,8 @@ def bootstrap_section(section_key: str, state: dict) -> int:
 
     if section_key == "eventi":
         items = parse_eventi(soup)
+    elif section_key == "albo":
+        items = parse_albo(soup)
     else:
         items = parse_notizie_circolari(soup, section_key)
 
@@ -420,10 +492,14 @@ def process_section(section_key: str, state: dict) -> int:
 
     if section_key == "eventi":
         items = parse_eventi(soup)
+    elif section_key == "albo":
+        items = parse_albo(soup)
     else:
         items = parse_notizie_circolari(soup, section_key)
 
-    already_seen = set(state.get(section_key, []))
+    # In debug mostra sempre tutti gli elementi correnti, indipendentemente
+    # dallo stato di produzione eventualmente montato nel container.
+    already_seen = set() if DEBUG_MODE else set(state.get(section_key, []))
     new_items = [it for it in items if it["url"] not in already_seen]
 
     if not new_items:
@@ -446,8 +522,9 @@ def process_section(section_key: str, state: dict) -> int:
         ok = send_telegram(msg)
         if ok:
             sent_count += 1
-            state.setdefault(section_key, []).append(item["url"])
-            logger.info("  notificato: %s", item["title"])
+            if not DEBUG_MODE:
+                state.setdefault(section_key, []).append(item["url"])
+            logger.info("  %s: %s", "simulato" if DEBUG_MODE else "notificato", item["title"])
         else:
             logger.error("  invio fallito, NON segno come notificato: %s", item["title"])
             # Non aggiungo l'URL allo stato: verrà ritentato al prossimo run.
@@ -462,14 +539,22 @@ def process_section(section_key: str, state: dict) -> int:
 # --------------------------------------------------------------------------
 
 def main() -> int:
-    if not TELEGRAM_TOKEN or not TELEGRAM_CHAT:
+    if not DEBUG_MODE and (not TELEGRAM_TOKEN or not TELEGRAM_CHAT):
         logger.error("TELEGRAM_TOKEN e TELEGRAM_CHAT devono essere definiti nell'ambiente")
         return 1
 
     state = load_state()
-    is_bootstrap = all(len(state.get(key, [])) == 0 for key in SECTIONS)
+    # In debug vogliamo vedere tutti i messaggi simulati anche con stato vuoto.
+    is_first_start = not DEBUG_MODE and all(
+        len(state.get(key, [])) == 0 for key in SECTIONS
+    )
 
-    if is_bootstrap:
+    if DEBUG_MODE:
+        logger.warning(
+            "DEBUG_MODE attiva: Telegram disabilitato e file di stato non modificato"
+        )
+
+    if is_first_start:
         logger.warning(
             "Primo avvio rilevato (stato vuoto): marco tutto il "
             "contenuto attuale come già notificato, senza inviare messaggi "
@@ -480,7 +565,14 @@ def main() -> int:
 
     for section_key in SECTIONS:
         try:
-            if is_bootstrap:
+            # Bootstrap per sezione: quando ne viene aggiunta una nuova (per
+            # esempio l'Albo) il contenuto già presente viene inizializzato
+            # senza generare notifiche retroattive, mentre le sezioni esistenti
+            # continuano normalmente.
+            section_is_bootstrap = (
+                not DEBUG_MODE and len(state.get(section_key, [])) == 0
+            )
+            if section_is_bootstrap:
                 total_sent += bootstrap_section(section_key, state)
             else:
                 total_sent += process_section(section_key, state)
@@ -488,9 +580,10 @@ def main() -> int:
             logger.exception("Errore imprevisto nella sezione '%s': %s", section_key, e)
             send_telegram(f"⚠️ Errore monitor IC Lentate, sezione {section_key}: {e}")
 
-    save_state(state)
+    if not DEBUG_MODE:
+        save_state(state)
 
-    if is_bootstrap:
+    if is_first_start:
         send_telegram(
             "✅ Monitor IC Lentate avviato per la prima volta. "
             "Da ora in poi riceverai un messaggio per ogni nuova "
