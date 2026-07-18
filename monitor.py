@@ -155,10 +155,22 @@ def send_telegram(text: str) -> bool:
             },
             timeout=REQUEST_TIMEOUT,
         )
-        r.raise_for_status()
+        if not r.ok:
+            try:
+                description = r.json().get("description", "risposta senza descrizione")
+            except (ValueError, AttributeError):
+                description = "risposta Telegram non decodificabile"
+            logger.error(
+                "Errore invio Telegram (HTTP %s): %s",
+                r.status_code,
+                description,
+            )
+            return False
         return True
     except requests.RequestException as e:
-        logger.error("Errore invio Telegram: %s", e)
+        # Non stampare l'eccezione completa: requests vi include l'URL, che
+        # contiene il token del bot.
+        logger.error("Errore di rete durante l'invio Telegram: %s", type(e).__name__)
         return False
 
 
@@ -497,9 +509,7 @@ def process_section(section_key: str, state: dict) -> int:
     else:
         items = parse_notizie_circolari(soup, section_key)
 
-    # In debug mostra sempre tutti gli elementi correnti, indipendentemente
-    # dallo stato di produzione eventualmente montato nel container.
-    already_seen = set() if DEBUG_MODE else set(state.get(section_key, []))
+    already_seen = set(state.get(section_key, []))
     new_items = [it for it in items if it["url"] not in already_seen]
 
     if not new_items:
@@ -522,8 +532,7 @@ def process_section(section_key: str, state: dict) -> int:
         ok = send_telegram(msg)
         if ok:
             sent_count += 1
-            if not DEBUG_MODE:
-                state.setdefault(section_key, []).append(item["url"])
+            state.setdefault(section_key, []).append(item["url"])
             logger.info("  %s: %s", "simulato" if DEBUG_MODE else "notificato", item["title"])
         else:
             logger.error("  invio fallito, NON segno come notificato: %s", item["title"])
@@ -544,14 +553,11 @@ def main() -> int:
         return 1
 
     state = load_state()
-    # In debug vogliamo vedere tutti i messaggi simulati anche con stato vuoto.
-    is_first_start = not DEBUG_MODE and all(
-        len(state.get(key, [])) == 0 for key in SECTIONS
-    )
+    is_first_start = all(len(state.get(key, [])) == 0 for key in SECTIONS)
 
     if DEBUG_MODE:
         logger.warning(
-            "DEBUG_MODE attiva: Telegram disabilitato e file di stato non modificato"
+            "DEBUG_MODE attiva: Telegram disabilitato; lo stato verrà aggiornato normalmente"
         )
 
     if is_first_start:
@@ -570,7 +576,7 @@ def main() -> int:
             # senza generare notifiche retroattive, mentre le sezioni esistenti
             # continuano normalmente.
             section_is_bootstrap = (
-                not DEBUG_MODE and len(state.get(section_key, [])) == 0
+                len(state.get(section_key, [])) == 0
             )
             if section_is_bootstrap:
                 total_sent += bootstrap_section(section_key, state)
@@ -580,8 +586,7 @@ def main() -> int:
             logger.exception("Errore imprevisto nella sezione '%s': %s", section_key, e)
             send_telegram(f"⚠️ Errore monitor IC Lentate, sezione {section_key}: {e}")
 
-    if not DEBUG_MODE:
-        save_state(state)
+    save_state(state)
 
     if is_first_start:
         send_telegram(

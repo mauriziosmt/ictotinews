@@ -32,9 +32,10 @@ Imposta nel tuo `.env`:
 DEBUG_MODE=true
 ```
 
-In questa modalità Telegram è completamente disabilitato, le credenziali non
-sono obbligatorie e `state/last_seen.json` non viene modificato. Ogni elemento
-trovato viene invece stampato nel log come messaggio simulato:
+In questa modalità Telegram è completamente disabilitato e le credenziali non
+sono obbligatorie. Tutto il resto funziona come in produzione: il bootstrap e
+il rilevamento delle novità aggiornano `state/last_seen.json`; ogni notifica
+viene invece stampata nel log come messaggio simulato:
 
 ```bash
 docker compose --profile test run --rm ic-lentate-alert-test
