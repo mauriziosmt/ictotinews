@@ -3,4 +3,5 @@
 .DS_Store
 __pycache__/
 *.pyc
-state/last_seen.json.tmp
+state/*
+!state/.gitkeep
